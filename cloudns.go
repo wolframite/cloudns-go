@@ -74,6 +74,8 @@ func (z Zone) List(a *Apiaccess) ([]Record, error) {
 		for _, rec := range ratmp {
 			tmpttl, _ := strconv.Atoi(rec.TTL)
 			tmppriority, _ := strconv.Atoi(rec.Priority)
+			tmpweight, _ := strconv.Atoi(rec.Weight)
+			tmpport, _ := strconv.Atoi(rec.Port)
 			rectmp := Record{
 				Domain:   z.Domain,
 				ID:       rec.ID,
@@ -82,6 +84,8 @@ func (z Zone) List(a *Apiaccess) ([]Record, error) {
 				TTL:      tmpttl,
 				Record:   rec.Record,
 				Priority: tmppriority,
+				Weight:   tmpweight,
+				Port:     tmpport,
 			}
 			ra = append(ra, rectmp)
 		}
