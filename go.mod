@@ -1,4 +1,4 @@
-module github.com/matschundbrei/cloudns-go
+module github.com/wolframite/cloudns-go
 
 go 1.19
 
