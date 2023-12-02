@@ -59,7 +59,7 @@ func (c Apiaccess) availablettl() (*resty.Response, error) {
 	return apireq(path, c)
 }
 
-//types lists available types from api, see https://www.cloudns.net/wiki/article/157/
+// types lists available types from api, see https://www.cloudns.net/wiki/article/157/
 type rectypes struct {
 	Authid       int    `json:"auth-id,omitempty"`
 	Subauthid    int    `json:"sub-auth-id,omitempty"`
@@ -73,7 +73,7 @@ func (r rectypes) availabletype() (*resty.Response, error) {
 	return apireq(path, r)
 }
 
-//reclist lists records for a domain, see https://www.cloudns.net/wiki/article/57/
+// reclist lists records for a domain, see https://www.cloudns.net/wiki/article/57/
 type reclist struct {
 	Authid       int    `json:"auth-id,omitempty"`
 	Subauthid    int    `json:"sub-auth-id,omitempty"`
@@ -99,9 +99,11 @@ type retrec struct {
 	TTL      string `json:"ttl"`
 	Record   string `json:"record"`
 	Priority string `json:"priority,omitempty"`
+	Weight   string `json:"weight,omitempty"`
+	Port     string `json:"port,omitempty"`
 }
 
-//zonelist struct to lists zones, see https://www.cloudns.net/wiki/article/50/
+// zonelist struct to lists zones, see https://www.cloudns.net/wiki/article/50/
 type zonelist struct {
 	Authid       int    `json:"auth-id,omitempty"`
 	Subauthid    int    `json:"sub-auth-id,omitempty"`
@@ -129,8 +131,8 @@ type createrec struct {
 	Host           string `json:"host"`
 	Record         string `json:"record"`
 	Priority       *int   `json:"priority,omitempty"`
-	Weight         int    `json:"weight,omitempty"`
-	Port           int    `json:"port,omitempty"`
+	Weight         *int   `json:"weight,omitempty"`
+	Port           *int   `json:"port,omitempty"`
 	Frame          int    `json:"frame,omitempty"`
 	FrameTitle     string `json:"frame-title,omitempty"`
 	FrameKeywords  string `json:"frame-keywords,omitempty"`
@@ -181,8 +183,8 @@ type updaterec struct {
 	Host           string `json:"host"`
 	Record         string `json:"record"`
 	Priority       *int   `json:"priority,omitempty"`
-	Weight         int    `json:"weight,omitempty"`
-	Port           int    `json:"port,omitempty"`
+	Weight         *int   `json:"weight,omitempty"`
+	Port           *int   `json:"port,omitempty"`
 	Frame          int    `json:"frame,omitempty"`
 	FrameTitle     string `json:"frame-title,omitempty"`
 	FrameKeywords  string `json:"frame-keywords,omitempty"`
@@ -245,7 +247,7 @@ func (z createzone) create() (*resty.Response, error) {
 	return apireq(path, z)
 }
 
-//zone update/destroy struct, see https://www.cloudns.net/wiki/article/135/ or https://www.cloudns.net/wiki/article/49/
+// zone update/destroy struct, see https://www.cloudns.net/wiki/article/135/ or https://www.cloudns.net/wiki/article/49/
 type zupdate struct {
 	Authid       int    `json:"auth-id,omitempty"`
 	Subauthid    int    `json:"sub-auth-id,omitempty"`

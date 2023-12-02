@@ -176,6 +176,8 @@ type Record struct {
 	TTL      int    `json:"ttl"`
 	Record   string `json:"record"`
 	Priority int    `json:"priority,omitempty"`
+	Weight   int    `json:"weight,omitempty"`
+	Port     int    `json:"port,omitempty"`
 }
 
 // Create a new record
@@ -190,9 +192,16 @@ func (r Record) Create(a *Apiaccess) (Record, error) {
 		TTL:          r.TTL,
 		Record:       r.Record,
 	}
-	if r.Rtype == "MX" || r.Rtype == "SRV" {
+	if r.Rtype == "MX" {
 		inr.Priority = &r.Priority
 	}
+
+	if r.Rtype == "SRV" {
+		inr.Priority = &r.Priority
+		inr.Weight = &r.Weight
+		inr.Port = &r.Port
+	}
+
 	resp, err := inr.create()
 	if err == nil {
 		errmsg, isapierr := checkapierr(resp.Body())
@@ -226,6 +235,8 @@ func (r Record) Read(a *Apiaccess) (Record, error) {
 		for _, rec := range ratmp {
 			tmpttl, _ := strconv.Atoi(rec.TTL)
 			tmppriority, _ := strconv.Atoi(rec.Priority)
+			tmpweight, _ := strconv.Atoi(rec.Weight)
+			tmpport, _ := strconv.Atoi(rec.Port)
 			rectmp := Record{
 				Domain:   r.Domain,
 				ID:       rec.ID,
@@ -234,6 +245,8 @@ func (r Record) Read(a *Apiaccess) (Record, error) {
 				TTL:      tmpttl,
 				Record:   rec.Record,
 				Priority: tmppriority,
+				Weight:   tmpweight,
+				Port:     tmpport,
 			}
 			if r.ID != "" && r.ID == rectmp.ID {
 				return rectmp, err2
@@ -262,6 +275,13 @@ func (r Record) Update(a *Apiaccess) (Record, error) {
 	if r.Rtype == "MX" || r.Rtype == "SRV" {
 		inr.Priority = &r.Priority
 	}
+
+	if r.Rtype == "SRV" {
+		inr.Priority = &r.Priority
+		inr.Weight = &r.Weight
+		inr.Port = &r.Port
+	}
+
 	resp, err := inr.update()
 	if err == nil {
 		errmsg, isapierr := checkapierr(resp.Body())
