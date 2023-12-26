@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/go-resty/resty/v2 v2.7.0
-	github.com/tidwall/gjson v1.14.4
+	github.com/tidwall/gjson v1.17.0
 )
 
 require (
