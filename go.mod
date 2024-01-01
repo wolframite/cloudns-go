@@ -3,7 +3,7 @@ module github.com/wolframite/cloudns-go
 go 1.19
 
 require (
-	github.com/go-resty/resty/v2 v2.10.0
+	github.com/go-resty/resty/v2 v2.11.0
 	github.com/tidwall/gjson v1.17.0
 )
 
